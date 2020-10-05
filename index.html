@@ -16,44 +16,37 @@
         </a>
         <span v-if="seen">Je suis présent</span><!-- SAVOIR SI UN ELEMENT EST PRESENT OU PAS -->
 
-        <ol>
-            <li v-for="todo in todos">
-                <!-- PARCOURIR UN ENSEMBLE DE DONNEES //app4.todos.push({ text: 'New item' }) pour ajouter dynamiquemnt -->
-                {{ todo.text }}
-            </li>
-        </ol>
-        <ol>
-            <todo-item></todo-item><!-- APPELLE D'UN COMPOSANT BASIC -->
-        </ol>
+       
         <button v-on:click="reverseMessage">Reverse Message</button><!-- EVENEMENT CLICK -->
         <input v-model="message"><!-- LIAISON BIDIRECTIONNEL -->
-    </div>
+        <todo-item
+            v-for="item in languages"
+            v-bind:todo="item"
+            v-bind:key="item.id"
+        >
 
+        </todo-item>
+    </div>
+   
 
     <script>
-
-        // Definition d'un nouveau composant basic appelé todo-item
-    Vue.component('todo-item', {
-        template: '<li>This is a todo</li>'
-     })
-    // Definition d'un nouveau composant avec les props
-     Vue.component('todo-item', {
-        // The todo-item component now accepts a
-        // "prop", which is like a custom attribute.
-        // This prop is called todo.
-        props: ['todo'],
-        template: '<li>{{ todo.text }}</li>'
-    })
-        var app = new Vue({
+ /* ------------------------------ CREATION DE MON PROPRE COMPOSANT l'ordre est important---------------- */
+        // Define a new component called todo-item
+       // Define a new component called todo-item
+        Vue.component('todo-item', {
+            props: ['todo'],
+            template: '<li>{{todo.text}}</li>'
+         })
+       var app=new Vue({
             el: '#app',
             data: {
                 message: 'Hello ,je suis ange developpeur vuejs',
                 link: "https://ange0.com",
                 seen: false,
-                todos: [
-                    { text: 'Learn JavaScript' },
-                    { text: 'Learn Vue' },
-                    { text: 'Build something awesome' }
+                languages: [
+                    { id: 0, text: 'Python' },
+                    { id: 1, text: 'JS' },
+                    { id: 2, text: 'PHP' }
                 ]
             },
             methods : {
@@ -63,6 +56,35 @@
             }
         })
 
+       
+
+        
+
+        /////////////////////////////////////////////// L'instance Vue ////////////////////////////////////////
+
+    var data = {a:1}
+    var vm = new Vue({
+        data:data,
+        created: function () { // cycle de vie d'un composant vuejs appeler quand le composant est creer
+    // `this` points to the vm instance
+             console.log('le composant est créé')
+        }
+        // exemple de data qui n'ont pas de valeur initiale
+       /*  data: {
+            newTodoText: '',
+            visitCount: 0,
+            hideCompletedTodos: false,
+            todos: [],
+            error: null
+        } */
+    });
+
+    console.log(vm.a);  // afficher la valeur de a =>  1
+    console.log(data.a) // afficher la valeur de a =>  1
+        
+    data.a=3;
+    console.log(data.a); // afficher la nouvelle  valeur de a  => 3
+    console.log(vm.a);  // afficher la nouvelle  valeur de a =>  3
     </script>
 </body>
 
