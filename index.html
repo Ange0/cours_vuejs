@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My first Vue app</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{ message }}
+        <!-- INTERPOLATION CLASSIQUE -->
+        <a v-bind:href="link">
+            <!-- LIER AVEC LES ATTRIBUTS -->
+            ange0
+        </a>
+        <span v-if="seen">Je suis présent</span><!-- SAVOIR SI UN ELEMENT EST PRESENT OU PAS -->
+
+        <ol>
+            <li v-for="todo in todos">
+                <!-- PARCOURIR UN ENSEMBLE DE DONNEES //app4.todos.push({ text: 'New item' }) pour ajouter dynamiquemnt -->
+                {{ todo.text }}
+            </li>
+        </ol>
+        <ol>
+            <todo-item></todo-item><!-- APPELLE D'UN COMPOSANT BASIC -->
+        </ol>
+        <button v-on:click="reverseMessage">Reverse Message</button><!-- EVENEMENT CLICK -->
+        <input v-model="message"><!-- LIAISON BIDIRECTIONNEL -->
+    </div>
+
+
+    <script>
+
+        // Definition d'un nouveau composant basic appelé todo-item
+    Vue.component('todo-item', {
+        template: '<li>This is a todo</li>'
+     })
+    // Definition d'un nouveau composant avec les props
+     Vue.component('todo-item', {
+        // The todo-item component now accepts a
+        // "prop", which is like a custom attribute.
+        // This prop is called todo.
+        props: ['todo'],
+        template: '<li>{{ todo.text }}</li>'
+    })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello ,je suis ange developpeur vuejs',
+                link: "https://ange0.com",
+                seen: false,
+                todos: [
+                    { text: 'Learn JavaScript' },
+                    { text: 'Learn Vue' },
+                    { text: 'Build something awesome' }
+                ]
+            },
+            methods : {
+                    reverseMessage: function () {
+                        this.message = this.message.split('').reverse().join('')
+                    }
+            }
+        })
+
+    </script>
+</body>
+
+</html>
